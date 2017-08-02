@@ -1,3 +1,4 @@
 alias serve="python -m SimpleHTTPServer 5000; echo Started on localhost:5000"
 alias tmux="TERM=screen-256color-bce tmux"
 alias clip="nc localhost 8377"
+alias k8s="cd $GOPATH/src/k8s.io/kubernetes"
