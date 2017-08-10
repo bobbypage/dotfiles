@@ -1,0 +1,17 @@
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+
+#################################################################################
+# Path
+#################################################################################
+
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+export GOROOT=$HOME/go
+export GOPATH=$HOME/gopath
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+export TERM=xterm-color
+export CLICOLOR=1
+export LSCOLORS=Exfxcxdxbxegedabagacad
+export LSCOLORS=gxfxcxdxbxegedabagacad # Dark lscolor scheme

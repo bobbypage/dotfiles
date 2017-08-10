@@ -45,7 +45,11 @@ if executable('ag')
   endif
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='dark'
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_override_foldtext = 0
 
+" Disable youcompleteme
+"let g:loaded_youcompleteme = 1
 
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<leader>t'],
@@ -236,7 +240,7 @@ let g:airline#extensions#tabline#enabled = 1
 " " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'"
 
-set cursorline
+"set cursorline
 
 " This allows buffers to be hidden if you've modified a buffer.
 " " This is almost a must if you wish to use buffers in this way.
@@ -279,4 +283,8 @@ call system('nc -z localhost 8377')
 if !v:shell_error
       vnoremap <silent> y y:call ClipboardYank()<cr>
 endif
+
+
+au FileType markdown setl conceallevel=0
+let g:vim_markdown_conceal = 0
 
