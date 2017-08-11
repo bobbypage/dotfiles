@@ -37,7 +37,7 @@ Plugin 'yggdroot/indentline'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='dracula'
 if executable('ag')
@@ -133,7 +133,7 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 
-set clipboard^=unnamed
+"set clipboard^=unnamed
 
 set autoindent
 set noexpandtab
@@ -263,13 +263,13 @@ nmap <leader>b :bp<CR>
 "" Show all open buffers and their status
 nmap <leader>bl :ls<CR>"
 
-if has("clipboard")
-  set clipboard=unnamed " copy to the system clipboard
+"if has("clipboard")
+  "set clipboard=unnamed " copy to the system clipboard
 
-  if has("unnamedplus") " X11 support
-    set clipboard+=unnamedplus
-  endif
-endif
+  "if has("unnamedplus") " X11 support
+    "set clipboard+=unnamedplus
+  "endif
+"endif
 
 function! ClipboardYank()
         "call system('xclip -i -selection clipboard', @@)
