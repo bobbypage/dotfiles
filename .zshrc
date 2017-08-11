@@ -3,8 +3,7 @@ ZSH_THEME="agnoster"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 #export PATH=/usr/local/bin:$PATH
-export PATH="/usr/local/opt/python/libexec/bin:$PATH" # use homebrew python
-
+#
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/bobbypage/.oh-my-zsh
 
@@ -12,7 +11,6 @@ export ZSH=/Users/bobbypage/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -61,6 +59,10 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+for file in ~/.{extra,aliases,functions,exports}; do
+    [ -r "$file" ] && source "$file"
+done
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -88,6 +90,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #alias python="python2"
-source $HOME/.aliases
 
 prompt_context () { } 
