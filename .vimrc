@@ -9,57 +9,70 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 set backspace=indent,eol,start
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+call plug#begin('~/.vim/plugged')
+if !has('nvim')
+Plug 'Valloric/YouCompleteMe'
+endif
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'sheerun/vim-polyglot'
-"Plugin 'itchyny/lightline.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdcommenter'
-"Plugin 'vim-syntastic/syntastic'
-"Plugin 'ervandew/supertab'
-Bundle 'jiangmiao/auto-pairs'
-Plugin 'fatih/vim-go'
-Plugin 'tpope/vim-sleuth'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'Valloric/YouCompleteMe'
-"Plugin 'szw/vim-maximizer'
-Plugin 'dracula/vim'
-Plugin 'mkitt/tabline.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'yggdroot/indentline'
+if has('nvim')
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-go'
+Plug 'w0rp/ale'
+endif
 
+Plug 'tpope/vim-fugitive'
+Plug 'VundleVim/Vundle.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'sheerun/vim-polyglot'
+"Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'ervandew/supertab'
+"Bundle 'jiangmiao/auto-pairs'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-sleuth'
+Plug 'christoomey/vim-tmux-navigator'
+"Plug 'szw/vim-maximizer'
+Plug 'dracula/vim'
+Plug 'mkitt/tabline.vim'
+Plug 'mileszs/ack.vim'
+Plug 'yggdroot/indentline'
 
-call vundle#end()            " required
+call plug#end()            " required
+
+if has('nvim')
+let g:loaded_youcompleteme = 1
+let g:deoplete#enable_at_startup = 1
+set timeoutlen=1000 ttimeoutlen=0
+
+endif
 filetype plugin indent on    " required
 "set clipboard=unnamedplus
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='dracula'
 if executable('ag')
       let g:ackprg = 'ag --vimgrep'
-  endif
-"let g:airline_theme='solarized'
-"let g:airline_solarized_bg='dark'
+endif
+
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_override_foldtext = 0
 
 " Disable youcompleteme
 "let g:loaded_youcompleteme = 1
 
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<leader>t'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-    \ 
-        \ }
 
-
-"For lighlight to work
+"For statusline to work
 set laststatus=2
+
+"nnoremap <SPACE> <Nop>
 let mapleader = ","
 
 " Disable swap files
@@ -73,12 +86,7 @@ set mouse=a
 " Enable Syntax Highlighting
 syntax enable
 syntax on
-" Dark Background
-"set background=dark
-" Theme
-"colorscheme solarized 
 color dracula
-
 
 " Enable line numbers
 set number
@@ -96,32 +104,6 @@ inoremap <C-z>  <Esc>:undo<CR>
 nnoremap <C-y>  :redo<CR>
 inoremap <C-y>  <Esc>:redo<CR>
 
-" buffers
-nmap <leader>t :enew<cr>
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
-nmap <leader>bq :bp <BAR> bd #<CR>
-
-
-"nnoremap <C-m>  :MaximizerToggle<CR>
-
-" Tabs
-"nnoremap <C-b>  :tabp<CR>
-"inoremap <C-b>  <Esc>:tabp<CR>i
-"nnoremap <C-n>  :tabN<CR>
-"inoremap <C-n>  <Esc>:tabN<CR>i
-"nnoremap <C-t>  :tabnew<CR>
-"inoremap <C-t>  <Esc>:tabnew<CR>i
-"nnoremap <C-k>  :tabclose<CR>
-
-inoremap <C-b>  <Esc>:tabp<CR>i
-nnoremap <C-n>  :tabN<CR>
-inoremap <C-n>  <Esc>:tabN<CR>i
-nnoremap <leader>t  :tabnew<CR>
-inoremap <C-t>  <Esc>:tabnew<CR>i
-nnoremap <C-k>  :tabclose<CR>
-"inoremap <C-k>  <Esc>:tabclose<CR>i
-
 " Map contrl+/ to comment
 map <C-_> <leader>c<space> 
 
@@ -133,12 +115,9 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
 vnoremap <Tab> >
 vnoremap <S-Tab> <
 
-"set clipboard^=unnamed
-
-set autoindent
-set noexpandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=4 " Show existing tab with 4 spaces width
+set shiftwidth=4 " When indenting with > use 4 spaces"
+set expandtab " On pressing tab, insert 4 spaces
 
 " Clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
@@ -206,7 +185,7 @@ let g:go_highlight_build_constraints = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
 " """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let NERDTreeMapOpenInTab='\r'
+"let NERDTreeMapOpenInTab='\r'
 let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
@@ -248,13 +227,13 @@ set hidden
 "
 "" To open a new empty buffer
 " This replaces :tabnew which I used to bind to this mapping
- nmap <leader>T :enew<cr>
+ nmap <leader>t :enew<cr>
 "
 " " Move to the next buffer
- nmap <leader>n :bn<CR>
+nmap <leader>s :bn<CR>
 "
 "" Move to the previous buffer
-nmap <leader>b :bp<CR>
+nmap <leader>a :bp<CR>
 
 " Close the current buffer and move to the previous one
 " " This replicates the idea of closing a tab
@@ -262,14 +241,6 @@ nmap <leader>b :bp<CR>
 "
 "" Show all open buffers and their status
 nmap <leader>bl :ls<CR>"
-
-"if has("clipboard")
-  "set clipboard=unnamed " copy to the system clipboard
-
-  "if has("unnamedplus") " X11 support
-    "set clipboard+=unnamedplus
-  "endif
-"endif
 
 function! ClipboardYank()
         "call system('xclip -i -selection clipboard', @@)
@@ -287,4 +258,3 @@ endif
 
 au FileType markdown setl conceallevel=0
 let g:vim_markdown_conceal = 0
-

@@ -11,10 +11,15 @@ ln -sfv $HOME/dotfiles/.exports ~
 ln -sfv $HOME/dotfiles/.extra ~
 ln -sfv $HOME/dotfiles/.functions ~
 
-VUNDLE=$HOME/.vim/bundle/Vundle.vim
+PLUG=$HOME/.vim/autoload/plug.vim
 
-if [ ! -d "$VUNDLE" ]; then
-    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+if [ ! -f "$PLUG" ]; then
+    mkdir -p $PLUG
+    ln -s $HOME/dotfiles/.vimrc ~/.config/nvim/init.vim
+    
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-vim +PluginInstall +qall
+vim +PlugInstall +qall

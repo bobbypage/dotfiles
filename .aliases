@@ -4,3 +4,8 @@ alias clip="nc localhost 8377"
 alias ll="ls -alF"
 alias la="ls -A"
 alias k8s="cd $GOPATH/src/k8s.io/kubernetes"
+
+# Use neovim if installed
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
