@@ -12,14 +12,18 @@ ln -sfv $HOME/dotfiles/.extra ~
 ln -sfv $HOME/dotfiles/.functions ~
 
 PLUG=$HOME/.vim/autoload/plug.vim
+NVIM_CONFIG=$HOME/.config/nvim
+NVIM_PLUG=$HOME/.local/share/nvim/site/autoload
 
 if [ ! -f "$PLUG" ]; then
-    mkdir -p $PLUG
-    ln -s $HOME/dotfiles/.vimrc ~/.config/nvim/init.vim
-    
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p $NVIM_CONFIG
+    ln -sfv $HOME/dotfiles/.vimrc $NVIM_CONFIG/init.vim
+	
+    mkdir -p $HOME/.vim/autoload
+    curl -o $HOME/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p $NVIM_PLUG
+    ln -sfv $PLUG $NVIM_PLUG
 
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
 vim +PlugInstall +qall
