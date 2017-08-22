@@ -91,6 +91,10 @@ color dracula
 " Enable line numbers
 set number
 
+" Show whitespce characters
+set list
+set listchars=tab:▸\ ,eol:¬
+
 " Cut, Paste, Copy
 vmap <C-x> d
 vmap <C-v> p
