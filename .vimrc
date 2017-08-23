@@ -13,11 +13,11 @@ set backspace=indent,eol,start
 "call vundle#begin()
 call plug#begin('~/.vim/plugged')
 if !has('nvim')
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 endif
 
 if has('nvim')
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'zchee/deoplete-go'
 Plug 'w0rp/ale'
 endif
@@ -50,9 +50,9 @@ if has('nvim')
 let g:loaded_youcompleteme = 1
 let g:deoplete#enable_at_startup = 1
 set timeoutlen=1000 ttimeoutlen=0
-
 endif
 filetype plugin indent on    " required
+set omnifunc=syntaxcomplete#Complete
 "set clipboard=unnamedplus
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -92,8 +92,12 @@ color dracula
 set number
 
 " Show whitespce characters
-set list
-set listchars=tab:▸\ ,eol:¬
+"set list
+"set listchars=tab:→\ ,eol:¬
+"set listchars=tab:→\ »\ ,extends:›,precedes:‹,nbsp:·,trail:·
+"set listchars=tab:→\ →\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+
+
 
 " Cut, Paste, Copy
 vmap <C-x> d
