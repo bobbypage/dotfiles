@@ -1,12 +1,10 @@
 alias serve="python -m SimpleHTTPServer 5000; echo Started on localhost:5000"
-alias tmux="TERM=screen-256color-bce tmux"
 alias clip="nc localhost 8377"
 alias ll="ls -alF"
 alias la="ls -A"
 alias k8s="cd $GOPATH/src/k8s.io/kubernetes"
 alias gs="git status"
 alias gd="git diff"
-alias dockerstop="docker stop $(docker ps -a -q)"
 
 # Use neovim if installed
 if type nvim > /dev/null 2>&1; then

@@ -19,6 +19,7 @@ endif
 if has('nvim')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'zchee/deoplete-go'
+Plug 'zchee/deoplete-jedi'
 Plug 'w0rp/ale'
 endif
 
@@ -50,6 +51,13 @@ if has('nvim')
 let g:loaded_youcompleteme = 1
 let g:deoplete#enable_at_startup = 1
 set timeoutlen=1000 ttimeoutlen=0
+
+" Ale settings
+let g:ale_fixers = {'python': ['yapf']}
+let g:ale_fix_on_save = 1
+" Disable annoying highlights
+let g:ale_set_highlights = 0
+
 endif
 filetype plugin indent on    " required
 set omnifunc=syntaxcomplete#Complete
@@ -60,8 +68,9 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_theme='dracula'
 if executable('ag')
       let g:ackprg = 'ag --vimgrep'
-endif
+  endif
 
+let g:airline#extensions#ale#enabled = 1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_override_foldtext = 0
 
@@ -266,3 +275,6 @@ endif
 
 au FileType markdown setl conceallevel=0
 let g:vim_markdown_conceal = 0
+
+" CntrlP Ignore .gitignrore stuff
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
