@@ -40,7 +40,7 @@ Plug 'fatih/vim-go'
 Plug 'tpope/vim-sleuth'
 Plug 'christoomey/vim-tmux-navigator'
 "Plug 'szw/vim-maximizer'
-Plug 'dracula/vim'
+"Plug 'dracula/vim'
 Plug 'mkitt/tabline.vim'
 Plug 'mileszs/ack.vim'
 Plug 'yggdroot/indentline'
@@ -65,7 +65,7 @@ set omnifunc=syntaxcomplete#Complete
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='dracula'
+let g:airline_theme='solarized'
 if executable('ag')
       let g:ackprg = 'ag --vimgrep'
   endif
@@ -95,7 +95,11 @@ set mouse=a
 " Enable Syntax Highlighting
 syntax enable
 syntax on
-color dracula
+"color dracula
+colorscheme solarized
+set background=dark
+
+
 
 " Enable line numbers
 set number
