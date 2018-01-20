@@ -13,7 +13,7 @@ set backspace=indent,eol,start
 "call vundle#begin()
 call plug#begin('~/.vim/plugged')
 if !has('nvim')
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 endif
 
 if has('nvim')
