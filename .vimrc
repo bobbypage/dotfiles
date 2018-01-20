@@ -18,8 +18,9 @@ endif
 
 if has('nvim')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-Plug 'zchee/deoplete-go'
+"Plug 'zchee/deoplete-go'
 Plug 'zchee/deoplete-jedi'
+Plug 'davidhalter/jedi-vim'
 Plug 'w0rp/ale'
 endif
 
@@ -36,7 +37,7 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'vim-syntastic/syntastic'
 "Plug 'ervandew/supertab'
 "Bundle 'jiangmiao/auto-pairs'
-Plug 'fatih/vim-go'
+"Plug 'fatih/vim-go'
 Plug 'tpope/vim-sleuth'
 Plug 'christoomey/vim-tmux-navigator'
 "Plug 'szw/vim-maximizer'
@@ -48,13 +49,17 @@ Plug 'yggdroot/indentline'
 call plug#end()            " required
 
 if has('nvim')
+let g:jedi#completions_enabled = 0 " Disable completions, we only use jedi for go to defintion
+
+let g:jedi#goto_command = "gd"
+
 let g:loaded_youcompleteme = 1
 let g:deoplete#enable_at_startup = 1
 set timeoutlen=1000 ttimeoutlen=0
 
 " Ale settings
 let g:ale_fixers = {'python': ['yapf']}
-let g:ale_fix_on_save = 1
+"let g:ale_fix_on_save = 1
 " Disable annoying highlights
 let g:ale_set_highlights = 0
 
@@ -195,13 +200,13 @@ let g:syntastic_javascript_checkers = ['jshint']
 
 " Go
 map <leader>s :SyntasticCheck<CR>
-let g:syntastic_go_checkers = ['go', 'golint', 'errcheck', 'govet']
+"let g:syntastic_go_checkers = ['go', 'golint', 'errcheck', 'govet']
 
-let g:go_highlight_structs = 1 
-let g:go_highlight_methods = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+"let g:go_highlight_structs = 1 
+"let g:go_highlight_methods = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_build_constraints = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
