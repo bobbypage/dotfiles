@@ -5,29 +5,42 @@ call plug#begin('~/.vim/plugged')
 " Neovim specific plugins
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-  Plug 'zchee/deoplete-jedi'
-  Plug 'davidhalter/jedi-vim'
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
   Plug 'w0rp/ale'
+  let g:ale_linters = {
+  \ 'python': ['flake8'],
+  \}
   "Plug 'zchee/deoplete-clang'
   "Plug 'zchee/deoplete-go'
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
 endif
 
-Plug 'VundleVim/Vundle.vim' " required
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
-Plug 'flazz/vim-colorschemes'
+"Plug 'flazz/vim-colorschemes'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-sleuth'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'mileszs/ack.vim'
 Plug 'yggdroot/indentline'
 Plug 'edkolev/tmuxline.vim'
-"Plug 'fatih/vim-go'
-"Plug 'godlygeek/tabular'
+
+set completeopt-=preview " Disable deoplete preview
+
 call plug#end()            " required
 
 if has('nvim')
@@ -58,7 +71,7 @@ set mouse=a
 syntax enable
 syntax on
 " Color schemes!
-colorscheme solarized
+colorscheme gruvbox
 set background=dark
 set shell=/bin/sh
 " Enable line numbers
@@ -105,7 +118,7 @@ nmap <leader>bl :ls<CR>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Airline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme='solarized'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#ale#enabled = 1
 let g:vim_markdown_folding_disabled = 1
@@ -135,6 +148,10 @@ function! ToggleNERDTreeFind()
   endif
 endfunction
 map <leader>nn :call ToggleNERDTreeFind()<CR>
+
+
+map <leader>f :Files<CR>
+map <leader><space> :Buffers<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Clipboard
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
