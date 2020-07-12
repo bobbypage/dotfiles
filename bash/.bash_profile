@@ -1,13 +1,4 @@
-# Get the aliases and functions
-#if [ -f ~/.bashrc ]; then
-    #. ~/.bashrc
-#fi
-
-#if [ -f ~/.aliases ]; then
-    #. ~/.aliases
-#fi
-
-for file in ~/.{extra,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{bash_prompt,exports,aliases,functions}; do
     [ -r "$file" ] && source "$file"
 done
 unset file
@@ -15,32 +6,48 @@ unset file
 set -o vi # vi mode
 
 #################################################################################
-# Bash History https://unix.stackexchange.com/a/1292
+# History Settings
 #################################################################################
 
 # Maximum number of history lines in memory
 export HISTSIZE=50000
+
 # Maximum number of history lines on disk
 export HISTFILESIZE=50000
-# Ignore duplicate lines
-export HISTCONTROL=ignoredups:erasedups
-# When the shell exits, append to the history file 
-#  instead of overwriting it
+
+# Avoid duplicate entries
+HISTCONTROL="erasedups:ignoreboth"
+
+# Append to the history file rather than overwrite it
 shopt -s histappend
 
-# After each command, append to the history file 
-#  and reread it
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+# Save multi-line commands as one command
+shopt -s cmdhist
 
-#################################################################################
-# Completion 
-#################################################################################
-if [ -f /etc/bash_completion ]; then
- source /etc/bash_completion
+# Save multi-line commands with newlines
+shopt -s lithist
+
+# Annotate the history lines with timestamps in .bash_history
+export HISTTIMEFORMAT=""
+
+# Record each line as it gets issued
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+function reload_history {
+  history -a
+  history -c
+  history -r
+}
+if ! [[ "$PROMPT_COMMAND" =~ "reload_history" ]]; then
+    precmd_functions+=(reload_history)
+    PROMPT_COMMAND="reload_history; $PROMPT_COMMAND"
 fi
 
+# Don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+
 #################################################################################
-# Better `cd`ing 
+# Better `cd`ing
 #################################################################################
 
 # Case-insensitive globbing (used in pathname expansion)
@@ -55,19 +62,24 @@ shopt -s dirspell 2> /dev/null
 # Turn on recursive globbing (enables ** to recurse all directories)
 shopt -s globstar 2> /dev/null
 
-#################################################################################
-# Colors / Term 
-#################################################################################
+[ -r "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
 
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM='gnome-256color';
-elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM='xterm-256color';
-fi;
+# Tab completions
+# Show possible completions and cycle through them.
+#bind 'set show-all-if-ambiguous on'
+#bind 'TAB:menu-complete'
 
-alias ls='ls --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+# Enable kubectl completions
+#
+if type "kubectl" &> /dev/null; then
+  source <(kubectl completion bash)
+fi
+
+if type "rg" &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
+fi
+
+if type "nvim" &> /dev/null; then
+  export VISUAL=nvim
+  export EDITOR="$VISUAL"
+fi

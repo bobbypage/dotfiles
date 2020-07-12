@@ -1,12 +1,8 @@
-alias serve="python -m SimpleHTTPServer 5000; echo Started on localhost:5000"
-alias clip="nc localhost 8377"
-alias ll="ls -alF"
-alias la="ls -A"
-alias k8s="cd $GOPATH/src/k8s.io/kubernetes"
 alias gs="git status"
 alias gd="git diff"
-# pdfmerge merged.pdf filesToMerge/*.pdf
-alias pdfmerge="\"/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py\" -o"
+alias tmux_reload="tmux source-file ~/.tmux.conf"
+alias attach="tmux a -dt main || tmux new-session -s main"
+alias serve="python -m SimpleHTTPServer 5000; echo Started on localhost:5000"
 
 # Use neovim if installed
 if type nvim > /dev/null 2>&1; then

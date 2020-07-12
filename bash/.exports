@@ -1,14 +1,7 @@
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-
 #################################################################################
 # Path
 #################################################################################
 
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
-export TERM=xterm-256color
-export CLICOLOR=1
-export LSCOLORS=Exfxcxdxbxegedabagacad
-export LSCOLORS=gxfxcxdxbxegedabagacad # Dark lscolor scheme
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.fzf/bin"
