@@ -3,6 +3,7 @@ alias gd="git diff"
 alias tmux_reload="tmux source-file ~/.tmux.conf"
 alias attach="tmux a -dt main || tmux new-session -s main"
 alias serve="python -m SimpleHTTPServer 5000; echo Started on localhost:5000"
+alias ls="ls --color=auto"
 
 # Use neovim if installed
 if type nvim > /dev/null 2>&1; then
