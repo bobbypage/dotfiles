@@ -251,6 +251,9 @@ let g:coc_user_config['languageserver'] = {
 \   }
 \ }
 
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.format')
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
 " Quickly edit files nearby
 nnoremap <leader>o :edit <C-R>=expand("%:p:h")<CR>
 
@@ -315,3 +318,17 @@ set clipboard+=unnamedplus
 
 " https://vim.fandom.com/wiki/Search_for_visually_selected_text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" FZF default changes in branch if git repo
+if isdirectory(".git")
+    let s:git_command = 'git diff master.. --name-only'
+    command! -bang FzfGitChanges
+                \ call fzf#run(fzf#wrap({
+                \     'source': s:git_command,
+                \     'options': $FZF_DEFAULT_OPTS . " " . $FZF_CTRL_T_OPTS,
+                \   }),
+                \   <bang>0
+                \ )
+    map <leader>f :FzfGitChanges<CR>
+endif
+
