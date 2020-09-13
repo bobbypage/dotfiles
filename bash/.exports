@@ -21,5 +21,7 @@ fi
 export VISUAL="vim"
 export EDITOR="$VISUAL"
 
-export PATH="$PATH:$(go env GOPATH)/bin"
-export GOPATH=$(go env GOPATH)
+if [ -d "/usr/local/go/bin" ]; then
+    export PATH="$PATH:$(go env GOPATH)/bin"
+    export GOPATH=$(go env GOPATH)
+fi
